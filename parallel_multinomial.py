@@ -1,14 +1,17 @@
-def multinomial_parallel(counts, p):
+def multinomial_parallel(counts, p, mode='both_diff'):
     """
     Sample from the multinomial distribution with multiple p vectors.
-
     * count must be an (n-1)-dimensional numpy array.
     * p must an n-dimensional numpy array, n >= 1.  The last axis of p
       holds the sequence of probabilities for a multinomial distribution.
-
     The return value has the same shape as p.
     """
     count = counts.copy()
+    if mode == 'constant_count':
+        count = np.tile(count, p.shape[:-1])
+    elif mode == 'constant_prob':
+        p = np.tile(p, [count.shape[0], 1])
+
     out = np.zeros(p.shape, dtype=int)
     ps = p.cumsum(axis=-1)
     # Conditional probabilities
