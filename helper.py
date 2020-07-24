@@ -2,6 +2,7 @@ import numpy as np, sys, os, random, ipdb as pdb, json, uuid, time, argparse, pi
 from pprint import pprint
 import logging, logging.config
 from collections import defaultdict as ddict
+from collections.abc import Iterable
 from ordered_set import OrderedSet
 from matplotlib import pyplot as plt
 import functools, itertools, operator
@@ -17,6 +18,10 @@ from torch.utils.data import DataLoader
 from torch.nn import Parameter
 
 np.set_printoptions(precision=4)
+
+def iterable_(obj):
+    '''Check if the input object is an iterable or not'''
+    return isinstance(obj, Iterable)
 
 def timer(func):
 	"""Print the runtime of the decorated function"""
