@@ -144,3 +144,13 @@ def mergeList(list_of_list):
 	A single list (union of all given lists)
 	"""
 	return list(itertools.chain.from_iterable(list_of_list))
+
+def sizeof_variable(var, suffix='B'):
+    ''' by Fred Cirera,  https://stackoverflow.com/a/1094933/1870254, modified'''
+    import sys
+    num = sys.getsizeof(var)
+    for unit in ['','Ki','Mi','Gi','Ti','Pi','Ei','Zi']:
+        if abs(num) < 1024.0:
+            return "%3.1f %s%s" % (num, unit, suffix)
+        num /= 1024.0
+    return "%.1f %s%s" % (num, 'Yi', suffix)
